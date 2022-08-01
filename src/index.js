@@ -13,8 +13,7 @@ export default {
     // Example 2: Using Image Resizing on image
     if (url.pathname === '/thumbnail') {
       // Using a remote url from GitHub, Reason because image resizing doesnt work with a worker that stores images on cloudflare images
-      const imageURL = "https://github.com/lauragift21/social-image-demo/blob/4f7364eb1a8f8f61526fae154b8a85005f8ce7b9/src/cover.png?raw=true";
-
+      const imageURL = "https://github.com/lauragift21/social-image-demo/blob/1ed9044463b891561b7438ecdecbdd9da48cdb03/assets/cover.png?raw=true";
       // make the text on the image dynamic
       for (const title of url.searchParams.values()) {
         try {
