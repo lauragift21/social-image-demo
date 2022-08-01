@@ -10,34 +10,35 @@ export default {
     }
 
     if (url.pathname === '/thumbnail') {
-      const imageURL = `https://imagedelivery.net/${env.CLOUDFLARE_ACCOUNT_HASH}/${env.IMAGE_ID}/public`;
 
-      // TODO: Make image resizing work as expected. It worked once, I just need to do it again.
+      // Using a remote url from GitHub, Reason because image resizing doesnt work with a worker that stores images on cloudflare images
+      const imageURL = "https://github.com/lauragift21/social-image-demo/blob/3f785c7361f77c092440e395638d60d43b069b23/src/cover.png?raw=true";
 
-      try {
-        const editedImage = await fetch(imageURL, {
-          cf: {
-            image: {
-              width: 800,
-              height: 600,
-              draw: [
-                {
-                  url: 'https://text-to-image.examples.workers.dev', // draw this image
-                  bottom: 5, // 5 pixels from the bottom edge
-                  right: 5, // 5 pixels from the right edge
-                  fit: 'contain', // make it fit within 100x50 area
-                  width: 100,
-                  height: 50,
-                  opacity: 0.8, // 20% transparent
-                },
-              ],
+      // make the params dynamic
+   
+      for (const value of url.searchParams.values()) { 
+        try {
+          console.log(value)
+          const editedImage = await fetch(imageURL, {
+            cf: {
+              image: {
+                width: 1280,
+                height: 720,
+                draw: [
+                  {
+                    url: `https://text-to-image.examples.workers.dev/?${value}`, // draw this image
+                  }
+                ],
+              },
             },
-          },
-        });
-        return editedImage;
-      } catch (error) {
-        console.log(error);
+          });
+          return editedImage;
+        } catch (error) {
+          console.log(error);
+        }
       }
+      
+
     }
     return new Response('Image Resizing with a Worker');
   },
