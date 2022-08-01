@@ -10,12 +10,10 @@ export default {
     }
 
     if (url.pathname === '/thumbnail') {
-
       // Using a remote url from GitHub, Reason because image resizing doesnt work with a worker that stores images on cloudflare images
       const imageURL = "https://github.com/lauragift21/social-image-demo/blob/3f785c7361f77c092440e395638d60d43b069b23/src/cover.png?raw=true";
 
-      // make the params dynamic
-   
+      // make the text on the image dynamic
       for (const value of url.searchParams.values()) { 
         try {
           console.log(value)
@@ -27,6 +25,9 @@ export default {
                 draw: [
                   {
                     url: `https://text-to-image.examples.workers.dev/?${value}`, // draw this image
+                  },
+                  {
+                    url: ''
                   }
                 ],
               },
