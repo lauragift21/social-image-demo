@@ -16,7 +16,7 @@ export default {
       const imageURL = "https://github.com/lauragift21/social-image-demo/blob/4f7364eb1a8f8f61526fae154b8a85005f8ce7b9/src/cover.png?raw=true";
 
       // make the text on the image dynamic
-      for (const title of url.searchParams.values()) { 
+      for (const title of url.searchParams.values()) {
         try {
           const editedImage = await fetch(imageURL, {
             cf: {
@@ -37,8 +37,6 @@ export default {
           console.log(error);
         }
       }
-      
-
     }
     return new Response('Image Resizing with a Worker');
   },
