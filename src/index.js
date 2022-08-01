@@ -5,7 +5,7 @@ export default {
     // Example 1: fetching image stored on Cloudflare
     if (url.pathname === '/original-image') {
       const image = await fetch(
-        `https://imagedelivery.net/${env.CLOUDFLARE_ACCOUNT_HASH}/6b0e914d-ffce-4ec2-6c72-15b34a5d4500/public`
+        `https://imagedelivery.net/${env.CLOUDFLARE_ACCOUNT_HASH}/${IMAGE_ID}/public`
       );
       return image;
     }
@@ -16,9 +16,8 @@ export default {
       const imageURL = "https://github.com/lauragift21/social-image-demo/blob/3f785c7361f77c092440e395638d60d43b069b23/src/cover.png?raw=true";
 
       // make the text on the image dynamic
-      for (const value of url.searchParams.values()) { 
+      for (const title of url.searchParams.values()) { 
         try {
-          console.log(value)
           const editedImage = await fetch(imageURL, {
             cf: {
               image: {
@@ -26,10 +25,8 @@ export default {
                 height: 720,
                 draw: [
                   {
-                    url: `https://text-to-image.examples.workers.dev/?${value}`, // draw this image
-                  },
-                  {
-                    url: ''
+                    url: `https://text-to-image.examples.workers.dev/?${title}`, // draw this image
+                    left: 20
                   }
                 ],
               },
