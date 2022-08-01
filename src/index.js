@@ -2,6 +2,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // Example 1: fetching image stored on Cloudflare
     if (url.pathname === '/original-image') {
       const image = await fetch(
         `https://imagedelivery.net/${env.CLOUDFLARE_ACCOUNT_HASH}/6b0e914d-ffce-4ec2-6c72-15b34a5d4500/public`
@@ -9,6 +10,7 @@ export default {
       return image;
     }
 
+    // Example 2: Using Image Resizing on image
     if (url.pathname === '/thumbnail') {
       // Using a remote url from GitHub, Reason because image resizing doesnt work with a worker that stores images on cloudflare images
       const imageURL = "https://github.com/lauragift21/social-image-demo/blob/3f785c7361f77c092440e395638d60d43b069b23/src/cover.png?raw=true";
